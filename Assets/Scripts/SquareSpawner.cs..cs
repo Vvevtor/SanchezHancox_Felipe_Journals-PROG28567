@@ -5,7 +5,7 @@ public class SquareSpawner : MonoBehaviour //note, do not name it squarespawner.
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Application.targetFrameRate = 24;
+        Application.targetFrameRate = 24; //had to search this up, lowering framerate so I can see the lines I spawn since they're only there for 1 frame.
     }
 
     // Update is called once per frame
@@ -26,8 +26,11 @@ public class SquareSpawner : MonoBehaviour //note, do not name it squarespawner.
             Debug.DrawLine(new Vector3(mousePos.x + 1, mousePos.y + 1, 0), new Vector3(mousePos.x + 1, mousePos.y - 1, 0), Color.white, 0f); //
             Debug.DrawLine(new Vector3(mousePos.x + 1, mousePos.y - 1, 0), new Vector3(mousePos.x - 1, mousePos.y - 1, 0), Color.white, 0f); // I've made a grave error
             //not reading the assignment closely enough, the squares are supposed to be permanent, I don't remember how to do this
-            Debug.DrawLine(new Vector3(0,0,0), new Vector3(100,100,0), Color.red); //the above code didn't initally work, so I'm using this one as a tester to see what might've
-            //gone wrong and experiment until I figure that out
+            Debug.DrawLine(new Vector3(0,0,0), new Vector3(100,100,0), Color.red); //the above code didn't initally work, so I'm using this line as a tester to see what might've
+            //gone wrong and experiment until I figure that out, won't mark out once problem is solved to preserve readability for 
+
+            //the answer was that it was working, the lines were just initially positioned very far away and the framerate is higher than this screen can handle
+            //so they just didn't show up most of the time.
         }
     }
 }
