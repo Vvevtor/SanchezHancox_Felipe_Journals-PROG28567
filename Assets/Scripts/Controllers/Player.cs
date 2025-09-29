@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,8 +10,10 @@ public class Player : MonoBehaviour
     public List<Transform> asteroidTransforms;
     public Vector2 bombOffset;
     public int numberOfTrailBombs;
-    public float bombTrailSpacing;
+    public float inBombSpacing;
     public float inDistance;
+    public float howFarSpaceMan;
+    public float maxDistFromShip;
 
 
     //Vector3 inOffset = new Vector3();
@@ -29,13 +32,23 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.T))
         {
-            SpawnBombTrail(bombTrailSpacing, numberOfTrailBombs);
+            SpawnBombTrail(inBombSpacing, numberOfTrailBombs);
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SpawnBombTrail(bombTrailSpacing, numberOfTrailBombs);
+            SpawnBombOnRandomCorner(inDistance);
         }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            WarpPlayer(enemyTransform, howFarSpaceMan);
+        }
+
+        //if (Input.GetKeyDown(KeyCode.F))
+        //{
+           // DetectAsteroids(maxDistFromShip, asteroidTransforms);
+       // }
     }
 
     public void SpawnBombAtOffset(Vector3 inOffset)
@@ -54,7 +67,7 @@ public class Player : MonoBehaviour
         {
 
             
-            Vector3 spawnPosition = transform.position + new Vector3(0f, -(inNumberOfBombs * i) + 0.5f, 0f);
+            Vector3 spawnPosition = transform.position + new Vector3(0f, -(inBombSpacing * i) - 0.5f, 0f);
             Instantiate(bombPrefab, spawnPosition, Quaternion.identity);
         }
 
@@ -69,21 +82,46 @@ public class Player : MonoBehaviour
 
         if (location == 1)
         {
-            Vector3 spawnPosition = transform.position + Vector3.up + Vector3.right;
+            Vector3 spawnPosition = transform.position + ((Vector3.up + Vector3.right) * inDistance);
+            Instantiate(bombPrefab, spawnPosition, Quaternion.identity);
         }
         else if (location == 2)
         {
-            Vector3 spawnPosition = transform.position + Vector3.up + Vector3.left;
+            Vector3 spawnPosition = transform.position + ((Vector3.up + Vector3.left) * inDistance);
+            Instantiate(bombPrefab, spawnPosition, Quaternion.identity);
         }
         else if (location == 3)
         {
-            Vector3 spawnPosition = transform.position + new Vector3(0f, -(inNumberOfBombs * i) + 0.5f, 0f);
+            Vector3 spawnPosition = transform.position + ((Vector3.down + Vector3.left) * inDistance);
+            Instantiate(bombPrefab, spawnPosition, Quaternion.identity);
         }
         else if (location == 4)
         {
-            Vector3 spawnPosition = transform.position + new Vector3(0f, -(inNumberOfBombs * i) + 0.5f, 0f);
+            Vector3 spawnPosition = transform.position + ((Vector3.down + Vector3.right) * inDistance);
+            Instantiate(bombPrefab, spawnPosition, Quaternion.identity);
         }
 
     }
 
+    //public void spawnEnemy();
+
+    public void WarpPlayer(Transform target, float ratio)
+    {
+        //Vector3 tempLocation = transform.position;
+        //tempLocation.Lerp(transform.position, target.position, ratio); //dunno what I was cooking here.
+        transform.position = Vector3.Lerp(transform.position, target.position, ratio);
+    }
+
+
+   // public void DetectAsteroids(float inMaxRange, List<Transform> inAsteroids)
+ //   {
+  //      foreach (int i in inAsteroids) 
+  //      {
+
+
+   //         Vector3 spawnPosition = transform.position + new Vector3(0f, -(inBombSpacing * i) - 0.5f, 0f);
+//            Instantiate(bombPrefab, spawnPosition, Quaternion.identity);
+
+
+   //     }
 }
