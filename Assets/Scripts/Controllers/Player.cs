@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     public float inDistance;
     public float howFarSpaceMan;
     public float maxDistFromShip;
+    public float numberOfSides;
 
 
     //Vector3 inOffset = new Vector3();
@@ -24,6 +25,9 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        DrawRadar(enemyTransform, numberOfSides);
+
 
         if (Input.GetKeyDown(KeyCode.B))
         {
@@ -124,4 +128,25 @@ public class Player : MonoBehaviour
 
 
    //     }
+
+
+    public void DrawRadar(Transform enemyposition, float howManySides)
+    {
+        UnityEngine.Color decidedColor = Color.green;
+
+        // if (close to enemy, decidedcolor = Color.red)
+
+        for (int i = 0; i < howManySides; i++)
+        {
+
+            //Debug.DrawLine(xxx, xxx, decidedColor); // I got completely stuck here, got lost in the sin cos sauce. 
+        }
+
+
+
+        
+
+
+
+    }
 }
