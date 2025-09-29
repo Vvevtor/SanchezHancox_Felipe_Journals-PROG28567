@@ -7,6 +7,9 @@ public class Player : MonoBehaviour
     public Transform enemyTransform;
     public GameObject bombPrefab;
     public List<Transform> asteroidTransforms;
+    public Vector2 bombOffset;
+    public int numberOfTrailBombs;
+    public float bombTrailSpacing;
 
     //Vector3 inOffset = new Vector3();
     //Vector3 SpawnBombAtOffset(Vector3 inOffset); //completely clueless, no idea how to make a method. at least by myself at the beginning of class during the first exercise.
@@ -19,14 +22,35 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            SpawnBombAtOffset(new Vector3(0, 1));
+            SpawnBombAtOffset(new Vector3(bombOffset.x, bombOffset.y));
         }
-        
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            SpawnBombTrail(bombTrailSpacing, numberOfTrailBombs);
+        }
     }
 
-    private void SpawnBombAtOffset(Vector3 inOffset)
+    public void SpawnBombAtOffset(Vector3 inOffset)
     {
         Vector3 spawnPosition = transform.position + inOffset;
         Instantiate(bombPrefab, spawnPosition, Quaternion.identity);
-    } 
+    }
+
+
+    public void SpawnBombTrail(float inBombSpacing, int inNumberOfBombs)
+    {
+
+        
+
+        for (int i = 0; i < inNumberOfBombs; i++)
+        {
+            Vector3 spawnPosition = ;
+            Instantiate(bombPrefab, spawnPosition, Quaternion.identity);
+        }
+
+
+
+
+    }
 }
