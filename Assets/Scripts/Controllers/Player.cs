@@ -158,32 +158,86 @@ public class Player : MonoBehaviour
     public void PlayerMovement(float whereToClamp, float timeToMaxAccelleration)
     {
 
+
+
         if (Input.GetKey(KeyCode.UpArrow))
         {
             //transform.position = transform.position + new Vector3(0, 0.005f, 0);
-            movementInertia = movementInertia + new Vector3(0, ((maxSpeed/timeToMaxAccelleration * Time.deltaTime)), 0); //james explained time.deltatime to me
+            movementInertia = movementInertia + new Vector3(0, (((maxSpeed / timeToMaxAccelleration * Time.deltaTime)) / 100), 0); //james explained time.deltatime to me
         }
+
+//        //else if (movementInertia.y > 0)
+//        //{
+//          //  movementInertia.y = movementInertia.y - 0.05f;
+
+////        }
+
+//  //      if (movementInertia.y >= 0.01f && movementInertia.y <= 0.1f)
+//        {
+//            movementInertia.y = 0;
+//        }
+
+        
 
         if (Input.GetKey(KeyCode.DownArrow))
         {
             //transform.position = transform.position + new Vector3(0, -0.005f, 0);
-            movementInertia = movementInertia + new Vector3(0, -((maxSpeed/timeToMaxAccelleration * Time.deltaTime)), 0);
+            movementInertia = movementInertia + new Vector3(0, -(((maxSpeed / timeToMaxAccelleration * Time.deltaTime)) / 100), 0);
 
         }
+
+        //else if (movementInertia.y < 0)
+        //{
+        //    movementInertia.y = movementInertia.y + 0.05f;
+
+        //}
+
+        //if (movementInertia.y <= -0.01f && movementInertia.y >= -0.1f)
+        //{
+        // movementInertia.y = 0;
+        //}
+
+        
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             //transform.position = transform.position + new Vector3(-0.005f, 0, 0);
-            movementInertia = movementInertia + new Vector3(-((maxSpeed/timeToMaxAccelleration * Time.deltaTime)), 0, 0);
+            movementInertia = movementInertia + new Vector3(-(((maxSpeed/timeToMaxAccelleration * Time.deltaTime))/100), 0, 0);
             
         }
+
+        //else if (movementInertia.x < 0)
+        //{
+        //    movementInertia.x = movementInertia.x + 0.05f;
+
+        //}
+
+        //if (movementInertia.x <= -0.01f && movementInertia.x >= -0.1f)
+        //{
+        //    movementInertia.x = 0;
+        //}
+
+        
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
             //transform.position = transform.position + new Vector3(0.005f, 0, 0);
-            movementInertia = movementInertia + new Vector3(((maxSpeed/timeToMaxAccelleration * Time.deltaTime)), 0, 0); //IF YOU DIVIDE BY A NUMBER BETWEEN 0 AND 1 IT MAKES A BIGGER NUMBER YOU FOOL
+            movementInertia = movementInertia + new Vector3((((maxSpeed/timeToMaxAccelleration * Time.deltaTime))/100), 0, 0); //IF YOU DIVIDE BY A NUMBER BETWEEN 0 AND 1 IT MAKES A BIGGER NUMBER YOU FOOL
 
         }
+
+        //else if (movementInertia.x > 0)
+        //{
+        //    movementInertia.x = movementInertia.x - 0.05f;
+
+        //}
+
+        //if (movementInertia.x >= 0.01f && movementInertia.x <= 0.1f)
+        //{
+        //    movementInertia.x = 0;
+        //}
+
+        
 
         //Debug.Log(movementInertia.magnitude);
 
@@ -194,9 +248,11 @@ public class Player : MonoBehaviour
         transform.position += movementInertia;
 
         //transform.position = Vector3.ClampMagnitude(transform.position, maxSpeed); // james showed me how clamp magnitude works
+
+        Debug.Log(movementInertia.ToString());
         
 
     }
 
-    
+
 }
