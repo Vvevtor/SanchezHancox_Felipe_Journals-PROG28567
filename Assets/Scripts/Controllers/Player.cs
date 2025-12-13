@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     public float maxSpeed;
     public float accelerationTime;
     private Vector3 movementInertia;
+    public Transform bombsTransform;
 
 
 
