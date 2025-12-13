@@ -179,7 +179,7 @@ public class Player : MonoBehaviour
 
         
 
-        if (Input.GetKey(KeyCode.DownArrow))
+        else if (Input.GetKey(KeyCode.DownArrow))
         {
             //transform.position = transform.position + new Vector3(0, -0.005f, 0);
             movementInertia = movementInertia + new Vector3(0, -(((maxSpeed / timeToMaxAccelleration * Time.deltaTime)) / 100), 0);
@@ -199,7 +199,7 @@ public class Player : MonoBehaviour
 
         
 
-        if (Input.GetKey(KeyCode.LeftArrow))
+        else if (Input.GetKey(KeyCode.LeftArrow))
         {
             //transform.position = transform.position + new Vector3(-0.005f, 0, 0);
             movementInertia = movementInertia + new Vector3(-(((maxSpeed/timeToMaxAccelleration * Time.deltaTime))/100), 0, 0);
@@ -219,29 +219,33 @@ public class Player : MonoBehaviour
 
         
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetKey(KeyCode.RightArrow))
         {
             //transform.position = transform.position + new Vector3(0.005f, 0, 0);
             movementInertia = movementInertia + new Vector3((((maxSpeed/timeToMaxAccelleration * Time.deltaTime))/100), 0, 0); //IF YOU DIVIDE BY A NUMBER BETWEEN 0 AND 1 IT MAKES A BIGGER NUMBER YOU FOOL
 
         }
 
-        //else if (movementInertia.x > 0)
-        //{
-        //    movementInertia.x = movementInertia.x - 0.05f;
+        else
+        {
+            movementInertia = movementInertia / 1.001f;
+        }
+            //else if (movementInertia.x > 0)
+            //{
+            //    movementInertia.x = movementInertia.x - 0.05f;
 
-        //}
+            //}
 
-        //if (movementInertia.x >= 0.01f && movementInertia.x <= 0.1f)
-        //{
-        //    movementInertia.x = 0;
-        //}
+            //if (movementInertia.x >= 0.01f && movementInertia.x <= 0.1f)
+            //{
+            //    movementInertia.x = 0;
+            //}
 
-        
 
-        //Debug.Log(movementInertia.magnitude);
 
-        movementInertia = Vector3.ClampMagnitude(movementInertia, maxSpeed);
+            //Debug.Log(movementInertia.magnitude);
+
+            movementInertia = Vector3.ClampMagnitude(movementInertia, maxSpeed);
 
         //transform.position += new Vector3(movementInertia.x, movementInertia.y, 0);
 
