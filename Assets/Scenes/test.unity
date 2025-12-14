@@ -238,8 +238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d47aa4a8b38e97448c22dbfdc9e14da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTransform: {fileID: 0}
-  bombPrefab: {fileID: 0}
+  enemyTransform: {fileID: 109649622}
+  bombPrefab: {fileID: 1273894435109820, guid: b262926197932c945b68169dd6fd6c5c, type: 3}
   asteroidTransforms: []
   bombOffset: {x: 0, y: 0}
   numberOfTrailBombs: 0
@@ -250,6 +250,7 @@ MonoBehaviour:
   numberOfSides: 0
   maxSpeed: 2
   accelerationTime: 5
+  bombsTransform: {fileID: 0}
 --- !u!114 &424485564 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}

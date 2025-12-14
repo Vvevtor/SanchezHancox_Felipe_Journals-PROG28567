@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using JetBrains.Annotations;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -7,6 +8,7 @@ public class Player : MonoBehaviour
 {
     public Transform enemyTransform;
     public GameObject bombPrefab;
+    public GameObject powerUpPrefab;
     public List<Transform> asteroidTransforms;
     public Vector2 bombOffset;
     public int numberOfTrailBombs;
@@ -14,9 +16,12 @@ public class Player : MonoBehaviour
     public float inDistance;
     public float howFarSpaceMan;
     public float maxDistFromShip;
-    public float numberOfSides;
-    public float maxSpeed;
-    public float accelerationTime;
+    public int numberOfSides = 8;
+    public int numberOfBombs = 5;
+    public float radarRadius = 1;
+    public float bombsRadius = 4;
+    public float maxSpeed = 3;
+    public float accelerationTime = 3;
     private Vector3 movementInertia;
     public Transform bombsTransform;
 
@@ -31,7 +36,9 @@ public class Player : MonoBehaviour
     void Update()
     {
 
-        DrawRadar(enemyTransform, numberOfSides);
+        //DrawRadar(enemyTransform, numberOfSides); done in class, incomplete
+
+        enemyRadar(radarRadius, numberOfSides);
 
         PlayerMovement(maxSpeed, accelerationTime);
 
@@ -55,10 +62,15 @@ public class Player : MonoBehaviour
             WarpPlayer(enemyTransform, howFarSpaceMan);
         }
 
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            SpawnPowerups(bombsRadius, numberOfBombs);
+        }
+
         //if (Input.GetKeyDown(KeyCode.F))
         //{
-           // DetectAsteroids(maxDistFromShip, asteroidTransforms);
-       // }
+        // DetectAsteroids(maxDistFromShip, asteroidTransforms);
+        // }
     }
 
     public void SpawnBombAtOffset(Vector3 inOffset)
@@ -113,6 +125,20 @@ public class Player : MonoBehaviour
 
     }
 
+    public void SpawnPowerups(float radius, int numberOfPowerups)
+    {
+        float fullRadians = Mathf.PI * 2;
+
+        for (int i = 0; i < numberOfPowerups; i++)
+        {
+            float maniac = ((fullRadians / numberOfPowerups) * i);
+
+            Vector2 maniacalBombSpawnPoint = new Vector2(Mathf.Cos(maniac), Mathf.Sin(maniac)) * radius;
+
+            Instantiate(powerUpPrefab, (transform.position + (Vector3)maniacalBombSpawnPoint), Quaternion.identity);
+        }
+    }
+
     //public void spawnEnemy();
 
     public void WarpPlayer(Transform target, float ratio)
@@ -144,16 +170,34 @@ public class Player : MonoBehaviour
 
         for (int i = 0; i < howManySides; i++)
         {
-
+            
             //Debug.DrawLine(xxx, xxx, decidedColor); // I got completely stuck here, got lost in the sin cos sauce. 
         }
 
+    }
+
+    public void enemyRadar(float radius, int circlePoints)
+    {
+        UnityEngine.Color decidedColor = Color.green;
+
+        float fullRadians = Mathf.PI * 2 ;
+
+        if (Vector3.Distance(enemyTransform.position, transform.position) < radius) {
+            decidedColor = Color.red;
+        }
 
 
-        
+        for (int i = 0; i < circlePoints; i++)
+        {
+            float maniac = ((fullRadians / circlePoints) * i);
+            float maniac2 = ((fullRadians / circlePoints) * (i+1));
 
+            Vector2 maniacalStart = new Vector2(Mathf.Cos(maniac), Mathf.Sin(maniac)) * radius;
+            Vector2 maniacalEnd = new Vector2(Mathf.Cos(maniac2), Mathf.Sin(maniac2)) * radius;
 
-
+            Debug.DrawLine(maniacalStart + (Vector2)transform.position, maniacalEnd + (Vector2)transform.position, decidedColor);
+            
+        }
     }
 
     public void PlayerMovement(float whereToClamp, float timeToMaxAccelleration)
