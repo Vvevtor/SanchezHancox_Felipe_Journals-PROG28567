@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour
     public float bombsRadius = 4;
     public float maxSpeed = 3;
     public float accelerationTime = 3;
+    public float spaceShipDashStrength = 3;
     private Vector3 movementInertia;
     public Transform bombsTransform;
 
@@ -67,10 +69,30 @@ public class Player : MonoBehaviour
             SpawnPowerups(bombsRadius, numberOfBombs);
         }
 
+        if (Input.GetKeyDown(KeyCode.Mouse0)) {
+            spaceShipDash(spaceShipDashStrength);
+        }
+
         //if (Input.GetKeyDown(KeyCode.F))
         //{
         // DetectAsteroids(maxDistFromShip, asteroidTransforms);
         // }
+    }
+
+    public void spaceShipDash(float spaceShipDashStrength)
+    {
+        Vector3 mousepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        float aDotB = Vector3.Dot(transform.position, mousepos);
+
+        //mousepos = mousepos.normalized;
+
+        Vector2 MANIACALDASHDIRECTION = new Vector2(Mathf.Cos(mousepos.x), Mathf.Sin(mousepos.y));
+
+        float angle = Mathf.Atan2(MANIACALDASHDIRECTION.x, MANIACALDASHDIRECTION.y);
+
+        //movementInertia = movementInertia + new Vector3(;  // I couldn't figure it out in an hour
+
     }
 
     public void SpawnBombAtOffset(Vector3 inOffset)
