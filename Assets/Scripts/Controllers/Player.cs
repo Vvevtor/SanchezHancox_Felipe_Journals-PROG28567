@@ -83,16 +83,22 @@ public class Player : MonoBehaviour
     {
         Vector3 mousepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        float aDotB = Vector3.Dot(transform.position, mousepos);
+        mousepos.z = 0;
+
+        Vector3 MANIACALDIRECTION = mousepos - transform.position;
+
+        
+        //float aDotB = Vector3.Dot(transform.position, mousepos);
 
         //mousepos = mousepos.normalized;
 
-        Vector2 MANIACALDASHDIRECTION = new Vector2(Mathf.Cos(mousepos.x), Mathf.Sin(mousepos.y));
+        //Vector2 MANIACALDASHDIRECTION = new Vector2(Mathf.Cos(mousepos.x), Mathf.Sin(mousepos.y));
 
-        float angle = Mathf.Atan2(MANIACALDASHDIRECTION.x, MANIACALDASHDIRECTION.y);
+        //float angle = Mathf.Atan2(MANIACALDASHDIRECTION.x, MANIACALDASHDIRECTION.y);
 
         //movementInertia = movementInertia + new Vector3(;  // I couldn't figure it out in an hour
 
+        movementInertia = movementInertia + (MANIACALDIRECTION/1000);
     }
 
     public void SpawnBombAtOffset(Vector3 inOffset)
